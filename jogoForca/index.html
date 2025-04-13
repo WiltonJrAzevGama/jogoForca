@@ -43,7 +43,7 @@
         </header>
 
         <section class="game-content">
-            <h2 id="round-message" class="round-title visually-hidden">Título da Rodada</h2>
+            <h2 id="round-message" class="round-title">Título da Rodada</h2>
             <div id="forca-container" class="hangman-display">
                 <img src="img/img/forca00.png" alt="Desenho da forca e progresso do enforcamento" id="forca-imagem">
             </div>
@@ -66,7 +66,6 @@
         <dialog id="modal-vitoria" class="modal victory-modal">
             <div class="modal-content">
                 <button id="fechar-modal" class="close" aria-label="Fechar modal">&times;</button>
-                <h3>Parabéns!</h3>
                 <p id="mensagem-modal"></p>
                 <div class="tenor-gif-embed" data-postid="18049334" data-share-method="host" data-aspect-ratio="1" data-width="100%">
                     <a href="https://tenor.com/view/jumping-joy-happy-so-happy-excited-gif-18049334">Jumping Joy Happy GIF</a> from <a href="https://tenor.com/search/jumping+joy-gifs">Jumping Joy GIFs</a>
@@ -82,9 +81,9 @@
             <div class="modal-content">
                 <h3>Você Perdeu!</h3>
                 <div class="tenor-gif-embed" data-postid="17543236" data-share-method="host" data-aspect-ratio="1" data-width="100%">
-                    <a href="https://tenor.com/view/fail-sad-frog-cry-pepe-gif-17543236">Fail Sad Frog GIF</a> from <a href="https://tenor.com/search/fail-gifs">Fail GIFs</a>
+                    <a href="https://tenor.com/view/fail-sad-frog-cry-pepe-gif-17543236">Fail Sad Frog GIF</a>
                 </div>
-                <p>A palavra correta era: <b id="correct-word"></b></p>
+                <p class="correct-word-text"></p>
                 <button class="play-again primary-button" id="play-again-btn">Jogar Novamente</button>
             </div>
         </dialog>

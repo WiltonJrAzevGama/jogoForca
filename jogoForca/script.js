@@ -23,23 +23,58 @@ const gameState = {
 const rounds = [
   {
     title: "Rodada de Animais",
-    words: ["cachorro", "gato", "elefante", "girafa", "tigre", "leão", "sapo"],
+    words: [
+      "cachorro",
+      "gato",
+      "elefante",
+      "girafa",
+      "tigre",
+      "leão",
+      "sapo",
+      "onicórnio",
+      "panda",
+      "tartaruga",
+      "raposa",
+      "cavalo",
+      "coelho",
+      "golfinho",
+      "pinguim",
+    ],
   },
   {
     title: "Rodada de Frutas",
-    words: ["banana", "abacaxi", "morango", "laranja", "uva"],
+    words: ["banana", "abacaxi", "morango", "laranja", "uva", "kiwi"],
   },
   {
     title: "Rodada de Estados",
     words: [
-      "Tocantins",
-      "Bahia",
-      "Ceará",
-      "Paraná",
-      "São Paulo",
-      "Rio de Janeiro",
-      "Acre",
-      "Alagoas",
+      "acre",
+      "alagoas",
+      "amapá",
+      "amazonas",
+      "bahia",
+      "ceará",
+      "distrito federal",
+      "espírito santo",
+      "goiás",
+      "maranhão",
+      "mato grosso",
+      "mato grosso do sul",
+      "minas gerais",
+      "pará",
+      "paraíba",
+      "paraná",
+      "pernambuco",
+      "piauí",
+      "rio de janeiro",
+      "rio grande do norte",
+      "rio grande do sul",
+      "rondônia",
+      "roraima",
+      "santa catarina",
+      "são paulo",
+      "sergipe",
+      "tocantins",
     ],
   },
 ];
@@ -143,12 +178,29 @@ class GameManager {
     return word.split("").map((char) => (char === " " ? " " : "_"));
   }
 
+  // Normaliza uma string removendo acentos
+  static normalizeString(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
   // Processa a tentativa do jogador e atualiza o estado do jogo
   static processGuess(letra) {
     if (!this.isValidGuess(letra)) return;
 
-    if (gameState.palavraSecreta.includes(letra)) {
-      this.revealLetter(letra);
+    const normalizedLetra = this.normalizeString(letra);
+    const normalizedPalavra = this.normalizeString(gameState.palavraSecreta);
+
+    if (normalizedPalavra.includes(normalizedLetra)) {
+      const successSound = new Audio("sounds/acerto-sound.mp3");
+      successSound.play().catch(console.error);
+
+      for (let i = 0; i < gameState.palavraSecreta.length; i++) {
+        if (
+          this.normalizeString(gameState.palavraSecreta[i]) === normalizedLetra
+        ) {
+          gameState.palavraExibida[i] = gameState.palavraSecreta[i];
+        }
+      }
     } else {
       this.handleWrongGuess(letra);
     }
@@ -161,7 +213,7 @@ class GameManager {
   static isValidGuess(letra) {
     return (
       letra &&
-      letra.match(/^[a-z]$/) &&
+      letra.match(/^[a-záàâãéèêíïóôõöúçñ]$/i) &&
       !gameState.palavraExibida.includes(letra) &&
       !gameState.letrasErradas.includes(letra)
     );
@@ -182,6 +234,14 @@ class GameManager {
     gameState.letrasErradas.push(letra);
     gameState.erros++;
     elements.forcaImagem.src = `img/img/forca0${gameState.erros}.png`;
+
+    // Se for o último erro, exibe a imagem 7 imediatamente e o modal após 1,5 segundos
+    if (gameState.erros === 6) {
+      elements.forcaImagem.src = `img/img/forca07.png`; // Exibe a imagem imediatamente
+      setTimeout(() => {
+        this.showDefeatAnimation(); // Exibe o modal de Game Over
+      }, 1500);
+    }
   }
 
   // Verifica o status do jogo para determinar vitória ou derrota
@@ -204,10 +264,21 @@ class GameManager {
 
   // Processa a derrota mostrando a palavra correta e desabilitando controles
   static handleDefeat() {
-    document.getElementById("correct-word").textContent =
-      gameState.palavraSecreta;
     this.disableGameControls();
-    this.showDefeatAnimation();
+    const modal = document.getElementById("game-over-modal");
+    const correctWordElement = document.getElementById("correct-word");
+
+    elements.forcaImagem.src = `img/img/forca07.png`;
+
+    setTimeout(() => {
+      if (correctWordElement) {
+        correctWordElement.textContent = gameState.palavraSecreta.toUpperCase();
+      }
+      if (modal) {
+        modal.showModal();
+        modal.style.display = "flex";
+      }
+    }, 1500);
   }
 
   // Atualiza os elementos da interface com o estado atual do jogo
@@ -218,8 +289,10 @@ class GameManager {
     elements.playerCreditsElement.textContent = gameState.playerCredits;
     elements.hintButton.disabled =
       gameState.playerCredits < GAME_CONFIG.hintCost;
-    elements.roundMessage.textContent =
-      rounds[gameState.currentRoundIndex].title;
+
+    const roundTitle = rounds[gameState.currentRoundIndex]?.title || "";
+    elements.roundMessage.textContent = roundTitle;
+    elements.roundMessage.style.display = roundTitle ? "block" : "none";
   }
 
   // Processa pedido de dica revelando uma letra aleatória

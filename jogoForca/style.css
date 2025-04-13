@@ -294,7 +294,7 @@ h1 {
   animation: modalAppear 0.4s ease-out;
 }
 
-.game-modal {
+.game-over-modal {
   display: none; /* Oculto por padrão */
   position: fixed;
   top: 0;
@@ -307,7 +307,7 @@ h1 {
   align-items: center;
 }
 
-.game-modal .content {
+.game-over-modal .content {
   background-color: #f44336; /* Cor de fundo para "Game Over" */
   color: white;
   padding: 30px;
@@ -317,6 +317,19 @@ h1 {
   width: 80%;
   max-width: 400px;
   animation: modalAppear 0.4s ease-out;
+}
+
+.game-over-modal[open] {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-over-modal .correct-word-text {
+  font-size: 24px;
+  color: white;
+  margin: 20px 0;
+  font-weight: bold;
 }
 
 .game-modal .content h4 {
@@ -563,23 +576,6 @@ h1 {
   75% { transform: translateX(10px); }
 }
 
-.dificuldade-btn {
-  background-color: #32c4bc;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  margin: 0 10px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-.dificuldade-btn:hover {
-  background-color: #248e96;
-  transform: scale(1.05);
-}
-
 .credits-container {
   position: fixed;
   top: 20px;
@@ -669,4 +665,18 @@ h1 {
 .start-button:active {
   transform: translateY(1px);
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+#correct-word {
+  font-size: 24px;
+  color: white;
+  text-transform: uppercase;
+  margin: 10px 0;
+  display: inline-block;
+}
+
+.game-over-modal .modal-content p {
+  font-size: 20px;
+  margin: 15px 0;
+  color: white;
 }
