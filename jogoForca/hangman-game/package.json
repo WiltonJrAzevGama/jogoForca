@@ -1,0 +1,11 @@
+{
+  "name": "hangman-game",
+  "version": "1.0.0",
+  "description": "A simple hangman game implemented in JavaScript.",
+  "main": "src/js/script.js",
+  "scripts": {
+    "start": "live-server src"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}

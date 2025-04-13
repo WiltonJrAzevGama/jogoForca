@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jogue o clássico Jogo da Forca com rodadas temáticas e desafios.">
+    <title>Jogo da Forca - Rodadas</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <audio id="click-sound" src="sounds/ui-pop-sound-316482.mp3" preload="auto"></audio>
+    <audio id="error-sound" src="sounds/error-126627.mp3" preload="auto"></audio>
+</head>
+
+<body>
+    <section id="tela-inicial" class="tela initial-screen">
+        <h1>Seja Bem-vindo ao Jogo da Forca!</h1>
+        <form id="start-form" class="start-form" onsubmit="return false;">
+            <div class="form-group">
+                <label for="nome-usuario">Digite seu nome:</label>
+                <input type="text" id="nome-usuario" placeholder="Seu nome" aria-label="Nome do usuário" required minlength="2" aria-describedby="name-error">
+                <span class="error-message" id="name-error" role="alert">Por favor, digite seu nome (mínimo 2 letras).</span>
+            </div>
+            <button type="button" id="start-game" class="start-button">Começar Jogo</button>
+        </form>
+    </section>
+
+    <main id="jogo-container" class="game-main" style="display: none;">
+        <header class="game-header">
+
+            <h1>JOGO DA FORCA</h1>
+            <div id="score-container" class="score-display">
+                <p>Score: <span id="score">0</span></p>
+            </div>
+            <div class="credits-container">
+                <img src="img/img/diamond-icon(1).png" alt="Créditos" class="credit-icon">
+                <span id="player-credits">50</span>
+                <button id="hint-button" class="hint-btn" title="Usar Dica (Custo: 10 diamantes)" aria-label="Usar Dica (Custo: 10 diamantes)">
+                    <img src="img/img/lampada-icon.png" alt="" class="hint-icon" aria-hidden="true"> </button>
+            </div>
+        </header>
+
+        <section class="game-content">
+            <h2 id="round-message" class="round-title visually-hidden">Título da Rodada</h2>
+            <div id="forca-container" class="hangman-display">
+                <img src="img/img/forca00.png" alt="Desenho da forca e progresso do enforcamento" id="forca-imagem">
+            </div>
+
+            <div id="exibicao-palavra" class="word-display" aria-live="polite"></div>
+            <div class="game-controls">
+                <label for="entrada-letra" class="visually-hidden">Chute uma letra</label> <input type="text" id="entrada-letra" class="letter-input" placeholder="Chute uma letra" maxlength="1" aria-label="Digite uma letra" autocomplete="off">
+                <button id="btn-chutar" class="guess-button">Chutar</button>
+            </div>
+
+            <section class="guessed-letters">
+                <h2>Letras:</h2>
+                <div id="letras-chutadas"></div>
+            </section>
+
+            <div id="mensagem" class="message-display" role="status" aria-live="assertive"></div> <button id="botao-reiniciar" class="secondary-button" style="display: none;">Recomeçar</button>
+
+        </section>
+
+        <dialog id="modal-vitoria" class="modal victory-modal">
+            <div class="modal-content">
+                <button id="fechar-modal" class="close" aria-label="Fechar modal">&times;</button>
+                <h3>Parabéns!</h3>
+                <p id="mensagem-modal"></p>
+                <div class="tenor-gif-embed" data-postid="18049334" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+                    <a href="https://tenor.com/view/jumping-joy-happy-so-happy-excited-gif-18049334">Jumping Joy Happy GIF</a> from <a href="https://tenor.com/search/jumping+joy-gifs">Jumping Joy GIFs</a>
+                </div>
+                <div class="modal-actions">
+                    <button class="play-again primary-button" id="proxima-rodada-btn">Próxima Rodada</button>
+                    <button class="play-again secondary-button" id="permanecer-rodada-btn">Continuar Rodada</button>
+                </div>
+            </div>
+        </dialog>
+
+        <dialog id="game-over-modal" class="modal game-over-modal">
+            <div class="modal-content">
+                <h3>Você Perdeu!</h3>
+                <div class="tenor-gif-embed" data-postid="17543236" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+                    <a href="https://tenor.com/view/fail-sad-frog-cry-pepe-gif-17543236">Fail Sad Frog GIF</a> from <a href="https://tenor.com/search/fail-gifs">Fail GIFs</a>
+                </div>
+                <p>A palavra correta era: <b id="correct-word"></b></p>
+                <button class="play-again primary-button" id="play-again-btn">Jogar Novamente</button>
+            </div>
+        </dialog>
+    </main>
+
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    <script src="script.js"></script>
+
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
+
+</body>
+
+</html>

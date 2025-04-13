@@ -1,0 +1,672 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 40px 20px; /* Adiciona mais espaçamento superior e inferior */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto; /* Ajusta a altura para evitar cortes */
+  min-height: 100vh; /* Garante que o conteúdo ocupe pelo menos a altura da tela */
+  background-color: #a8dadc; /* Fundo verde água */
+  overflow-y: auto; /* Permite rolagem vertical se necessário */
+  box-sizing: border-box; /* Inclui padding no cálculo do tamanho */
+}
+
+h1 {
+  font-family: poppins, sans-serif;
+  font-size: 2.5em;
+  margin-bottom: 30px; /
+}
+
+#round-message {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+#mensagem {
+  display: none;
+  font-size: 1.5em;
+  margin: 20px;
+  font-weight: bold;
+}
+
+#exibicao-palavra {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+#botao-reiniciar {
+  display: none;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#botao-reiniciar:hover {
+  background-color: #336335;
+}
+
+#letras-chutadas {
+  font-size: 2em;
+  color: blue;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+#forca-container {
+  width: 300px; 
+  margin: 20px auto;
+  position: relative;
+  background-color: white; 
+  border-radius: 15px; 
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+#forca-container img {
+  width: 100%;
+}
+
+#forca-container img#base {
+  width: 150%; /* Aumenta o tamanho da base da forca */
+}
+
+#forca-container .parte-do-corpo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+#entrada-letra {
+  width: 200px;
+  padding: 10px;
+  font-size: 1.2em;
+  border: 2px solid #32c4bc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+#entrada-letra:focus {
+  border-color: #32c4bc;
+  box-shadow: 0 0 5px #32c4bc;
+}
+
+#btn-chutar {
+  background-color: #32c4bc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#btn-chutar:hover {
+  background-color: #248e96;
+}
+
+.modal {
+  display: none; /* Oculto por padrão */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro semi-transparente */
+}
+
+.modal-content {
+  background-color: #f44336;
+  color: white;
+  padding: 30px;
+  border-radius: 15px; /* Bordas arredondadas para parecer um balão */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 80%;
+  max-width: 500px;
+  animation: modalAppear 0.4s ease-out;
+  position: relative;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #f44336;
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 80%;
+  max-width: 500px;
+  animation: modalAppear 0.4s ease-out;
+}
+
+@keyframes modalAppear {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.gif-container {
+  margin: 20px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 200px;
+}
+
+.gif-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+#play-again-btn {
+  background-color: white;
+  color: #f44336;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1.1em;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+#play-again-btn:hover {
+  background-color: #ffeb3b;
+  transform: scale(1.05);
+}
+
+#modal-vitoria {
+  display: none; /* Oculto por padrão */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+  z-index: 1000;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+}
+
+#modal-vitoria .content {
+  background-color: #4caf50; /* Verde para vitória */
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+  animation: modalAppear 0.4s ease-out;
+}
+
+#modal-vitoria button.play-again {
+  background-color: white;
+  color: #4caf50;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.1em;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+#modal-vitoria button.play-again:hover {
+  background-color: #ffeb3b;
+  transform: scale(1.05);
+}
+
+#game-over-modal {
+  display: none; /* Oculto por padrão */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-over-modal .modal-content {
+  background-color: #f44336; /* Cor de fundo para "Game Over" */
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+  animation: modalAppear 0.4s ease-out;
+}
+
+.game-modal {
+  display: none; /* Oculto por padrão */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-modal .content {
+  background-color: #f44336; /* Cor de fundo para "Game Over" */
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+  animation: modalAppear 0.4s ease-out;
+}
+
+.game-modal .content h4 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+.game-modal .content img {
+  width: 100%;
+  max-width: 250px;
+  margin: 20px 0;
+  border-radius: 10px;
+}
+
+.game-modal .content p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.game-modal .content .play-again {
+  background-color: white;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.1em;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.game-modal .content .play-again:hover {
+  background-color: #30b8ee;
+  transform: scale(1.05);
+}
+
+.game-modal .content .tenor-gif-embed {
+  margin: 20px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 300px;
+  height: auto;
+}
+
+#modal-vitoria .modal-content {
+  background-color: rgb(64, 230, 119);
+  color: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  /* Fundo escuro com transparência */
+}
+
+.modal .modal-content {
+  background-color: white;
+  /* Fundo branco */
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.modal .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.modal .close:hover,
+.modal .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal .tenor-gif-embed {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.modal .modal-content p {
+  font-size: 24px;
+  /* Tamanho da fonte maior */
+  font-weight: bold;
+  /* Texto em negrito */
+  text-align: center;
+  /* Centraliza o texto */
+  margin-bottom: 20px;
+  /* Espaço abaixo da mensagem */
+}
+
+.modal button {
+  background-color: #4CAF50;
+  /* Cor verde */
+  color: white;
+  /* Texto branco */
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.modal button:hover {
+  background-color: #45a049;
+}
+
+#score-container {
+  position: absolute;
+  top: 50px;
+  right: 40px;
+  font-size: 24px; 
+  font-weight: bold;
+  color: #333; 
+}
+
+#tela-inicial {
+  text-align: center;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 90%;
+  margin: 20px auto;
+  animation: fadeIn 0.8s ease-out;
+}
+
+#tela-inicial h1 {
+  color: #2c3e50;
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-group {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 1.2em;
+  color: #34495e;
+  font-weight: 500;
+}
+
+#nome-usuario {
+  width: 80%;
+  max-width: 300px;
+  padding: 15px;
+  font-size: 1.1em;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+}
+
+#nome-usuario:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  outline: none;
+}
+
+#nome-usuario.invalid {
+  border-color: #e74c3c;
+  animation: shake 0.5s ease-in-out;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.9em;
+  margin-top: 8px;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.error-message.visible {
+  display: block;
+  opacity: 1;
+}
+
+.start-button {
+  background: linear-gradient(45deg, #2ecc71, #27ae60);
+  color: white;
+  border: none;
+  padding: 16px 40px;
+  font-size: 1.2em;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 20px;
+}
+
+.start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+  background: linear-gradient(45deg, #27ae60, #2ecc71);
+}
+
+.start-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 10px rgba(46, 204, 113, 0.3);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.dificuldade-btn {
+  background-color: #32c4bc;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  margin: 0 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.dificuldade-btn:hover {
+  background-color: #248e96;
+  transform: scale(1.05);
+}
+
+.credits-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 8px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.credit-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+#player-credits {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+}
+
+.hint-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hint-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.hint-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 5px;
+  display: none;
+}
+
+.error-message.visible {
+  display: block;
+}
+
+#nome-usuario.invalid {
+  border-color: #f44336;
+}
+
+.start-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.start-button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.start-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}

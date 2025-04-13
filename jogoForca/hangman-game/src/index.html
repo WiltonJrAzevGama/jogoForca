@@ -1,0 +1,42 @@
+Sure, here's the contents for the file: /hangman-game/hangman-game/src/index.html
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Forca</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="tela-inicial">
+        <h1>Bem-vindo ao Jogo da Forca!</h1>
+        <input type="text" id="nome-usuario" placeholder="Digite seu nome">
+        <button id="start-game">Iniciar Jogo</button>
+        <p id="name-error" class="error-message">Por favor, insira um nome válido.</p>
+    </div>
+    <div id="jogo-container" style="display: none;">
+        <h2 id="round-message"></h2>
+        <div id="exibicao-palavra"></div>
+        <div id="letras-chutadas"></div>
+        <div id="player-credits">Créditos: <span id="player-credits"></span></div>
+        <div id="score">Pontuação: <span id="score"></span></div>
+        <input type="text" id="entrada-letra" maxlength="1" placeholder="Digite uma letra">
+        <button id="btn-chutar">Chutar</button>
+        <button id="hint-button">Dica</button>
+        <button id="botao-reiniciar" style="display: none;">Reiniciar Jogo</button>
+        <img id="forca-imagem" src="img/img/forca00.png" alt="Forca">
+    </div>
+    <div id="modal-vitoria" style="display: none;">
+        <p id="mensagem-modal"></p>
+        <button id="proxima-rodada-btn">Próxima Rodada</button>
+        <button id="permanecer-rodada-btn">Permanecer na Rodada</button>
+        <button id="fechar-modal">Fechar</button>
+    </div>
+    <div id="game-over-modal" style="display: none;">
+        <p>Fim de Jogo! A palavra correta era: <span id="correct-word"></span></p>
+        <button id="play-again-btn">Jogar Novamente</button>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
